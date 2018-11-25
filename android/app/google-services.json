@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1064231639806",
+    "firebase_url": "https://workshop2-bf2af.firebaseio.com",
+    "project_id": "workshop2-bf2af",
+    "storage_bucket": "workshop2-bf2af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1064231639806:android:1756c86e7ac4d1a5",
+        "android_client_info": {
+          "package_name": "com.example.todoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1064231639806-if6hh2j20q9no9ghoiilo542cu1apmrn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClofjsc1OclXWIOENUOYAGcLyiIKg1mJY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
