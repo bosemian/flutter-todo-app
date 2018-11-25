@@ -9,7 +9,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool isChecked = false;
   List<Todo> todos = List<Todo>();
 
   void _viewAddTodo() async {
@@ -19,7 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   _buildRow(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('Todos').orderBy("isDone").snapshots(),
+      stream: Firestore.instance.collection('todos').orderBy("isDone").snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return LinearProgressIndicator();
@@ -31,15 +30,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
-    List<Todo> _todos = snapshot.map((documentSnapshot) => Todo.fromSnapshot(documentSnapshot)).toList();
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Todo"),
-        ),
-        body: ListView.builder(
+    todos = snapshot.map((documentSnapshot) => Todo.fromSnapshot(documentSnapshot)).toList();
+
+    return ListView.builder(
           itemCount: todos.length,
           itemBuilder: (BuildContext context, position) {
             return Container(
@@ -57,9 +50,16 @@ class _HomePageState extends State<HomePage> {
                         })
                   ],
                 ));
-            
           },
+        );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Todo"),
         ),
+        body: _buildRow(context),
         floatingActionButton: FloatingActionButton(
           onPressed: _viewAddTodo,
           tooltip: 'Compose Email',

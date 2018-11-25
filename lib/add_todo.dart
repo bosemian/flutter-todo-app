@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AddTodo extends StatefulWidget {
   @override
@@ -7,10 +8,15 @@ class AddTodo extends StatefulWidget {
 
 class _AddTodoState extends State<AddTodo> {
   final _addController = TextEditingController();
+  Firestore db = Firestore.instance;
 
   void _handleAddTodo(String value) {
     _addController.clear();
-    Navigator.pop(context, value);
+    var data = new Map<String, dynamic>();
+    data['title'] = value;
+    data['isDone'] = false;
+    db.collection('todos').add(data);
+    Navigator.pop(context, data);
   }
 
   @override
