@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Firestore db = Firestore.instance;
   List<Todo> todos = List<Todo>();
 
   void _viewAddTodo() async {
@@ -31,20 +32,21 @@ class _HomePageState extends State<HomePage> {
 
   _buildList(BuildContext context, List<DocumentSnapshot> snapshot) {
     todos = snapshot.map((documentSnapshot) => Todo.fromSnapshot(documentSnapshot)).toList();
-
     return ListView.builder(
           itemCount: todos.length,
           itemBuilder: (BuildContext context, position) {
+
             return Container(
                 padding: EdgeInsets.only(left: 30.0, right: 30.0),
                 child: Row(
                   children: <Widget>[
                     Expanded(
-                        child: Text(todos[position].title, style: TextStyle(fontSize: 24.0))),
+                        child: Text(todos[position].title, style: TextStyle(fontSize: 24.0, decoration: todos[position].isDone ? TextDecoration.lineThrough : TextDecoration.none ))),
                     Checkbox(
                         value: todos[position].isDone,
                         onChanged: (bool value) {
                           setState(() {
+                            db.collection("todos").document(todos[position].id).setData({'isDone': value, 'title': todos[position].title});
                             todos[position].isDone = value;
                           });
                         })
